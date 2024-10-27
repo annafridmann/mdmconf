@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+
+    <title>reveal.js</title>
+
+    <link rel="stylesheet" href="dist/reset.css" />
+    <link rel="stylesheet" href="dist/reveal.css" />
+    <link rel="stylesheet" href="dist/theme/custom.css" />
+
+    <!-- Theme used for syntax highlighted code -->
+    <link rel="stylesheet" href="plugin/highlight/monokai.css" />
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section>JSON Web Token (JWT)</section>
+        <section>
+          <h1>Terminology</h1>
+
+          <section>Identification VS Authorization VS Authentication</section>
+          <section>
+            <li>
+              Identification is a process that defines who wants to use source.
+            </li>
+            <br />
+            <li>
+              Authentication (AuthN) is a process that verifies that someone or
+              something is who they say they are.
+            </li>
+            <br />
+            <li>
+              Authorization is the security process that determines a user or
+              service's level of access.
+            </li>
+          </section>
+
+          <section>Encode VS Encrypt</section>
+          <section>
+            <br />
+            <li>
+              Encoding method - transforming data from one form to another. The
+              main aim of encoding is to transform data into a form that is
+              readable by most of the systems.
+            </li>
+            <li>
+              Encryption is an encoding technique in which a message is encoded
+              by using an encryption algorithm in such a way that only
+              authorized personnel can access the message or information
+            </li>
+            <br />
+          </section>
+
+          <section>Hashing</section>
+          <section>
+            <li>
+              In Hashing, data is converted to the hash using some hashing
+              function, which can be any number generated from a string or text.
+              Various hashing algorithms are MD5 and SHA256.
+            </li>
+          </section>
+          <section>Token</section>
+          <section>
+            <li>
+              An authentication token allows internet users to access
+              applications, services, websites, and application programming
+              interfaces (APIs) without having to enter their login credentials
+              each time they visit.
+            </li>
+          </section>
+        </section>
+        <section>
+          <h1>Cookie sessions</h1>
+          <section>
+            Session cookies are cookies that last for a session. A session
+            starts when you launch a website or web app and ends when you leave
+            the website or close your browser window. Session cookies contain
+            information that is stored in a temporary memory location which is
+            deleted after the session ends
+          </section>
+          <section>
+            The most common example of a session cookie in action is the
+            shopping cart on eCommerce websites. When you visit an online shop
+            and add items to your shopping cart, the session cookie remembers
+            your selection so your shopping cart will have the items you
+            selected when you are ready to checkout. Without session cookies,
+            the checkout page will not remember your selection and your shopping
+            cart will be empty.
+          </section>
+        </section>
+        <section>
+          <h1>JWT Structure</h1>
+          <section>
+            <pre><code data-trim data-noescape>
+		  Encoded token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.
+		  eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gR
+		  G9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.
+		  SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+			</code></pre>
+          </section>
+          <section>
+            <h4>Header (Decoded)</h4>
+            <pre><code data-trim data-noescape>
+				{
+					"alg": "HS256",
+					"typ": "JWT"
+				  }
+				  </code></pre>
+          </section>
+          <section>
+            <h4>Payload (Decoded)</h4>
+            <pre><code data-trim data-noescape>
+				{
+					"sub": "1234567890",
+					"name": "John Doe",
+					"iat": 1516239022
+				  }
+				  </code></pre>
+          </section>
+          <section>
+            <h4>Signature</h4>
+            <pre><code data-trim data-noescape>
+				HMACSHA256(
+					base64UrlEncode(header) + "." +
+					base64UrlEncode(payload),
+					secret)
+					//more readable version
+					const SECRET_KEY = 'cAtwa1kkEy'
+					const unsignedToken = base64urlEncode(header) + '.' + base64urlEncode(payload)
+					const signature = HMAC-SHA256(unsignedToken, SECRET_KEY)
+				  </code></pre>
+          </section>
+        </section>
+        <section>
+          <h2>JWT how does it work?</h2>
+          <img
+            data-src="https://habrastorage.org/r/w1560/getpro/habr/post_images/4e6/230/2d9/4e62302d99ae5382cfa1842a7d8e02da.png"
+            width="70%"
+            height="70%"
+          />
+        </section>
+        <!-- <section>
+          <h1>Data checking</h1>
+        </section> -->
+      </div>
+    </div>
+
+    <script src="dist/reveal.js"></script>
+    <script src="plugin/notes/notes.js"></script>
+    <script src="plugin/markdown/markdown.js"></script>
+    <script src="plugin/highlight/highlight.js"></script>
+    <script>
+      // More info about initialization & config:
+      // - https://revealjs.com/initialization/
+      // - https://revealjs.com/config/
+      Reveal.initialize({
+        hash: true,
+
+        // Learn about plugins: https://revealjs.com/plugins/
+        plugins: [RevealMarkdown, RevealHighlight, RevealNotes],
+      });
+    </script>
+  </body>
+</html>
